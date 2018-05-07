@@ -1,53 +1,32 @@
 var MyComponent = React.createClass({
-    displayName: 'my component',
-    sel1Value: 'Windows',
-    sel2Value: [],
-
     getInitialState: function() {
-        return { msg: '' };
+        return { data: ['first item'] };
     },
 
-    handleOnChangeSel1: function (event) {
-        this.sel1Value = event.target.value;
+    handleOnChange: function(event) {
+      this.inputValue = event.target.value;
     },
 
-    handleOnChangeSel2: function (event) {
-        var options = event.target.options;
-        var values = [];
-        for (var i = 0, l = options.length; i < l; i++) {
-            if (options[i].selected) {
-                values.push(options[i].value);
-            }
-        }
-        this.sel2Value = values;
-    },
-
-    handleOnClick: function (event) {
-      this.setState({
-          msg: '状態：' + this.sel1Value + ' [' + this.sel2Value + ']'
-      });
+    handleAddItem: function() {
+      var arr = this.state.data.concat(this.inputValue);
+      this.setState({data: arr});
     },
 
     render: function() {
+        var items = this.state.data.map(function(item, i) {
+            return (
+                <option key={'key_' + i}>{i + ':' + item}</option>
+            );
+        }.bind(this));
+
         return (
-            <div>
-                <p>{this.state.msg}</p>
-                <div><select onChange={this.handleOnChangeSel1}>
-                    <option>windows</option>
-                    <option>macOs</option>
-                    <option>linux</option>
-                </select>
-                </div>
-                <div><select multiple size="3" onChange={this.handleOnChangeSel2}>
-                    <option>android</option>
-                    <option>ios</option>
-                    <option>windowsPhone</option>
-                </select>
-                </div>
-                <div>
-                    <input type="button" value="click" onClick={this.handleOnClick}/>
-                </div>
-            </div>
+          <div>
+              <select size="5">{items}</select>
+              <div>
+                  <input type="text" onChange={this.handleOnChange}/>
+                  <input type="button" value="click" onClick={this.handleAddItem}></input>
+              </div>
+          </div>
         );
     }
 });
