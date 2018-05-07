@@ -1,0 +1,17 @@
+body {
+    color: #999;
+    padding: 5px 20px;
+    line-height: 125%;
+}
+h1 {
+    font-size: 28pt;
+}
+p {
+    font-size: 18pt;
+}
+
+#msg {
+    padding: 5px 10px;
+    color: blue;
+    border: 1px solid lightgray;
+}
